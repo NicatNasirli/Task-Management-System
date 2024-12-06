@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Task Management System</title>
+  <link rel="stylesheet" href= "../../output.css">
+</head>
+
+<body>
+  <nav class="bg-orange-500 text-white px-4 py-2 h-14 flex justify-between items-center">
+    <div class="flex items-center">
+      <a href="#" class="mb-1 font-bold text-xl">Task Manager</a>
+      <img src="../images/logo.jpeg" class="h-8 w-8 ml-2 rounded-xl" alt="Logo">
+    </div>
+    <ul class="flex space-x-4 text-white font-bold">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Features</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="./signUp.html">Sign Up</a></li>
+    </ul>
+  </nav>
+  <div class="bg-white flex flex-col items-center justify-center relative z-10">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome to Task Manager!</h1>
+    <p class="text-lg text-gray-600 mb-6 text-center">
+      Simplify your tasks and boost productivity with our easy-to-use management tools.
+    </p>
+    <a href="./signUp.html" class="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition mb-8">
+      Get Started
+    </a>
+    <div class="flex flex-wrap justify-center items-center gap-8 p-8">
+      <div class="text-center max-w-xl">
+        <img src="../images/organize.jpeg" alt="Feature 1" class="w-20 h-20 mx-auto mb-4">
+        <h3 class="text-xl font-semibold text-gray-800">Organize Tasks</h3>
+        <p class="text-gray-600">Keep track of your to-dos and deadlines effortlessly.</p>
+      </div>
+      <div class="text-center max-w-xl">
+        <img src="../images/collobrate.png" alt="Feature 2" class="w-20 h-20 mx-auto mb-4">
+        <h3 class="text-xl font-semibold text-gray-800">Collaborate</h3>
+        <p class="text-gray-600">Share your tasks and work with your team seamlessly.</p>
+      </div>
+      <div class="text-center max-w-xl">
+        <img src="../images/trackProgress.png" alt="Feature 3" class="w-20 h-20 mx-auto mb-4">
+        <h3 class="text-xl font-semibold text-gray-800">Track Progress</h3>
+        <p class="text-gray-600">Monitor your progress and achieve your goals.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white min-h-screen flex flex-col items-center justify-center relative">
+    <img src="../images/background.jpg" alt="Background Image"
+      class="absolute inset-0 w-full h-full object-cover opacity-10 z-0">
+  </div>
+
+  <footer class="bg-gray-800 text-white text-center py-2">
+    &copy; 2024 Task Manager
+  </footer>
+
+  <script src="../scripts/script.js"></script>
+</body>
+
+</html>

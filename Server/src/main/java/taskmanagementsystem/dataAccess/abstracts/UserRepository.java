@@ -8,4 +8,5 @@ import taskmanagementsystem.entities.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
     User findByEmailAndPassword(String email, String password);
+    User findById(int id);
 }

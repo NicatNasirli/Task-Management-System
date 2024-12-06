@@ -9,6 +9,8 @@ import taskmanagementsystem.dataAccess.abstracts.UserRepository;
 import taskmanagementsystem.entities.User;
 import taskmanagementsystem.utilities.mapper.ModelMapperService;
 
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 public class UserManager implements UserService {
@@ -35,5 +37,17 @@ public class UserManager implements UserService {
         return this.modelMapper
                 .forResponse()
                 .map(user, GetUserResponse.class);
+    }
+
+    @Override
+    public void delete(int id) {
+        User user = this.userRepository.findById(id);
+        this.userRepository.delete(user);
+    }
+
+    @Override
+    public List<User> getAll() {
+
+        return this.userRepository.findAll();
     }
 }

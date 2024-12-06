@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import taskmanagementsystem.business.abstracts.TaskService;
 import taskmanagementsystem.business.requests.CreateTaskRequest;
 import taskmanagementsystem.business.responses.GetTaskResponse;
+import taskmanagementsystem.entities.User;
 
 import java.util.List;
 
@@ -26,4 +27,5 @@ public class TaskController {
     public ResponseEntity<List<GetTaskResponse>> getAll() {
         return ResponseEntity.ok(this.taskService.getAll());
     }
+
 }
