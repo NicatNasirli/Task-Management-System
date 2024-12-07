@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 
 import java.time.LocalDate;
 
@@ -34,6 +35,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @Lazy
     private User user;
 
 }

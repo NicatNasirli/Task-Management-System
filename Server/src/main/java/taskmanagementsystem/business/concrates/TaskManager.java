@@ -30,8 +30,9 @@ public class TaskManager implements TaskService {
     @Override
     public List<GetTaskResponse> getAll() {
         List<Task> tasks = this.taskRepository.findAll();
-
-         return tasks.stream()
+        if (tasks.isEmpty()) {
+            throw new RuntimeException("Task entity is empty");
+        } else return tasks.stream()
                 .map(task -> this.modelMapperService
                         .forResponse()
                         .map(task, GetTaskResponse.class))

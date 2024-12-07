@@ -30,15 +30,20 @@ public class RoleManager implements RoleService {
 
     @Override
     public GetRoleResponse getById(int id) {
-        return this.modelMapper
+        Role role = this.roleRepository.findById(id);
+        if (role == null) {
+            throw new RuntimeException("Role does not exist!");
+        } else return this.modelMapper
                 .forResponse()
-                .map(this.roleRepository.findById(id), GetRoleResponse.class);
+                .map(role, GetRoleResponse.class);
     }
 
     @Override
     public List<GetRoleResponse> getAll() {
-        return this.roleRepository.findAll()
-                .stream()
+        List<Role> roles = this.roleRepository.findAll();
+        if (roles.isEmpty()) {
+            throw new RuntimeException("Role entity is empty");
+        } else return roles.stream()
                 .map(role -> this.modelMapper
                         .forResponse()
                         .map(role, GetRoleResponse.class))
@@ -48,9 +53,12 @@ public class RoleManager implements RoleService {
 
     @Override
     public GetRoleResponse getByRole(String role) {
-        return this.modelMapper
+        Role returnedRole = this.roleRepository.findByRole(role);
+        if (returnedRole == null) {
+            throw new RuntimeException("Role entity is empty");
+        } else return this.modelMapper
                 .forResponse()
-                .map(this.roleRepository.findByRole(role), GetRoleResponse.class);
+                .map(returnedRole, GetRoleResponse.class);
     }
 
 

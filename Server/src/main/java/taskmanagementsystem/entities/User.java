@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import taskmanagementsystem.security.CustomUserDetails;
 
 import java.util.HashSet;
@@ -32,7 +33,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -40,8 +41,7 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    public CustomUserDetails userDetails(){
+    public CustomUserDetails userDetails() {
         return new CustomUserDetails(this);
     }
-
 }
