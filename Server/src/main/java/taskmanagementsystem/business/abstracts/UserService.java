@@ -1,6 +1,5 @@
 package taskmanagementsystem.business.abstracts;
 
-import jakarta.persistence.SecondaryTable;
 import org.springframework.stereotype.Service;
 import taskmanagementsystem.business.requests.CreateUserRequest;
 import taskmanagementsystem.business.responses.GetUserResponse;
@@ -18,4 +17,5 @@ public interface UserService {
     void delete(int id);
     List<GetUserResponse> getAll();
     Set<Role> getUserRoles(int id);
+    GetUserResponse signIn(CreateUserRequest createUserRequest);
 }

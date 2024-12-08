@@ -1,0 +1,170 @@
+body {
+    background-color: white;
+    font-family: sans-serif;
+}
+
+nav {
+  background-color: #f97316;
+  color: white;
+  padding: 0 16px;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav h2{
+  display: flex;
+  font-size: xx-large;
+  margin-left: 100px;
+}
+nav .logo {
+  display: flex;
+  align-items: center;
+}
+
+nav .logo a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+nav .logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+nav ul {
+  list-style: none;
+  justify-content: space-between;
+  flex-direction: row;
+  display: flex;
+}
+
+nav ul li {
+  padding: 8px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+ 
+.sideBar{
+  width: 15%;
+  height: 100vh;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sideBar .statusBar {
+  position: relative;
+  display: flex;
+  justify-content: start;
+  background-color: #f97316;
+  margin-left: -10px;
+}
+
+.sideBar button{
+  background-color: #f97316;
+  border-radius: 5px;
+  border-color: white;
+  display: flex;
+  width: 150px;
+  height: 65px;
+  margin-left: 30px;
+}
+
+.sideBar p{
+  color: black;
+  font-size: large;
+}
+
+.sideBar .centerAlign {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  gap: 10px; 
+}
+
+.sideBar b{
+  color: white;
+  font-size: larger;
+}
+
+.sideBar a{
+  text-decoration: none;
+  color: inherit;
+}
+
+.sideBar ul{
+  color: black;
+  list-style: none;
+  text-decoration: none;
+}
+
+.sideBar ul li{
+  padding: 15px;
+}
+
+.sideBar ul li a {
+  color: black;
+  text-decoration: none;
+}
+
+.content{
+  display: flex;
+}
+.welcoming{
+  color: black;
+  text-decoration:solid;
+  text-align: center;
+  justify-content: start;
+  align-items: center;
+  width: 1000px;
+  height: 200px;
+  position: relative;
+  font-size: xx-large;
+  display: flex;
+  margin-left: 150px;
+}
+
+main{
+  display: flex;
+  flex-direction: column;
+}
+
+main .tasks{
+  /* background-color: #f97316; */
+  width: 1000px;
+  display: flex;
+  margin-top: 100px;
+  margin-left: 150px;
+}
+
+main .tasks h2{
+  text-align: start;
+}
+
+main .tasks button{
+  background-color: inherit;
+  border-color:white;
+  position: relative;
+  color: red;
+  text-align: end;
+  height: 20px;
+  margin-top: 20px;
+  margin-left: 400px;
+}
+
+
+main .tasks .task{
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  margin-top: 60px;
+}
+

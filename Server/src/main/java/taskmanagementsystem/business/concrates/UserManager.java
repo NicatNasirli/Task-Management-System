@@ -17,6 +17,7 @@ import java.util.Set;
 @Component
 @AllArgsConstructor
 public class UserManager implements UserService {
+
     private final UserRepository userRepository;
     private final ModelMapperService modelMapper;
     private final RoleRepository roleRepository;
@@ -74,5 +75,16 @@ public class UserManager implements UserService {
         if (user == null) {
             throw new RuntimeException("User does not exist!");
         } else return user.getRoles();
+    }
+
+    @Override
+    public GetUserResponse signIn(CreateUserRequest createUserRequest) {
+        User user = this.userRepository.findByEmailAndPassword(
+                createUserRequest.getEmail(), createUserRequest.getPassword());
+        if (user == null) {
+            throw new RuntimeException("User does not exists!");
+        } else return this.modelMapper
+                .forResponse()
+                .map(user, GetUserResponse.class);
     }
 }
