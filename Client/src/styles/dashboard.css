@@ -118,53 +118,65 @@ nav ul li a {
 .content{
   display: flex;
 }
-.welcoming{
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+main .welcoming {
   color: black;
-  text-decoration:solid;
   text-align: center;
   justify-content: start;
   align-items: center;
   width: 1000px;
   height: 200px;
-  position: relative;
   font-size: xx-large;
   display: flex;
   margin-left: 150px;
 }
 
-main{
-  display: flex;
-  flex-direction: column;
-}
-
-main .tasks{
-  /* background-color: #f97316; */
+main .tasks {
   width: 1000px;
   display: flex;
-  margin-top: 100px;
+  flex-direction: column;
+  margin-top: 30px;
   margin-left: 150px;
-}
-
-main .tasks h2{
-  text-align: start;
+  padding: 20px; 
 }
 
 main .tasks button{
-  background-color: inherit;
+  display: flex;
+  background-color: inherit; 
   border-color:white;
   position: relative;
   color: red;
-  text-align: end;
+  text-align: center;
+  width: 80px;
   height: 20px;
-  margin-top: 20px;
-  margin-left: 400px;
+  margin-top: -40px;
+  margin-left: 600px;
 }
 
-
-main .tasks .task{
-  position: relative;
-  flex-direction: column;
+main .tasks #taskHolder {
+  background-color: aquamarine;
   display: flex;
-  margin-top: 60px;
+  align-items: center;
+  width: 500px;
+  padding: 10px;
+  margin-left: 100px;
+  margin-top: 45px;
+  color: black;
+  font-size: large;
+  font-weight: bold;
+}
+
+main .tasks #taskHolder .checkbox{
+  position: relative;
+  display: flex;
+}
+
+main .tasks #taskHolder .taskTitle{
+  margin-left: 8px;
 }
 

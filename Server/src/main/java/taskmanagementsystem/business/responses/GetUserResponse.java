@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class GetUserResponse {
     private Long id;
+    private String name;
     private String email;
     private String username;
     private String password;

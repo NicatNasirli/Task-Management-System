@@ -35,7 +35,7 @@ public class UserManager implements UserService {
         User user = this.modelMapper
                 .forRequest()
                 .map(createUserRequest, User.class);
-        user.setRoles(Set.of(this.roleRepository.findById(1)));
+//        user.setRoles(Set.of(this.roleRepository.findById(1)));
         this.userRepository.save(user);
     }
 
@@ -86,5 +86,12 @@ public class UserManager implements UserService {
         } else return this.modelMapper
                 .forResponse()
                 .map(user, GetUserResponse.class);
+    }
+
+    @Override
+    public GetUserResponse getById(int id) {
+        return this.modelMapper
+                .forResponse()
+                .map(this.userRepository.findById(id), GetUserResponse.class);
     }
 }

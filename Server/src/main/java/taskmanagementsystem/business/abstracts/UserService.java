@@ -18,4 +18,5 @@ public interface UserService {
     List<GetUserResponse> getAll();
     Set<Role> getUserRoles(int id);
     GetUserResponse signIn(CreateUserRequest createUserRequest);
+    GetUserResponse getById(int id);
 }

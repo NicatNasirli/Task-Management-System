@@ -45,4 +45,9 @@ public class UserController {
         return this.userService.getAll();
     }
 
+    @GetMapping("/{id}")
+    public GetUserResponse getUser(@PathVariable int id){
+        return this.userService.getById(id);
+    }
+
 }
