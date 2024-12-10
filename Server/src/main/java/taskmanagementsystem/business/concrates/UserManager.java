@@ -1,5 +1,6 @@
 package taskmanagementsystem.business.concrates;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import taskmanagementsystem.business.abstracts.UserService;
@@ -11,6 +12,7 @@ import taskmanagementsystem.entities.Role;
 import taskmanagementsystem.entities.User;
 import taskmanagementsystem.utilities.mapper.ModelMapperService;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,7 +37,9 @@ public class UserManager implements UserService {
         User user = this.modelMapper
                 .forRequest()
                 .map(createUserRequest, User.class);
-//        user.setRoles(Set.of(this.roleRepository.findById(1)));
+
+        Role role = this.roleRepository.findById(1);
+        user.setRoles(Set.of(role));
         this.userRepository.save(user);
     }
 

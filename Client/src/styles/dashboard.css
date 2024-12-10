@@ -136,7 +136,7 @@ main .welcoming {
   margin-left: 150px;
 }
 
-main .tasks {
+main .tasksPart {
   width: 1000px;
   display: flex;
   flex-direction: column;
@@ -145,7 +145,7 @@ main .tasks {
   padding: 20px; 
 }
 
-main .tasks button{
+main .tasksPart button{
   display: flex;
   background-color: inherit; 
   border-color:white;
@@ -158,25 +158,33 @@ main .tasks button{
   margin-left: 600px;
 }
 
-main .tasks #taskHolder {
-  background-color: aquamarine;
+#tasks{
+  margin-top: 30px;
   display: flex;
+  flex-direction: column;
+}
+
+main .tasksPart .taskHolder {
+  background-color: whitesmoke;
+  display: flex;
+  border-radius: 10px;
   align-items: center;
   width: 500px;
   padding: 10px;
   margin-left: 100px;
-  margin-top: 45px;
+  margin-top: 5px;
   color: black;
   font-size: large;
   font-weight: bold;
 }
 
-main .tasks #taskHolder .checkbox{
+main .tasksPart .taskHolder .checkbox{
+  transform: scale(1.8);
   position: relative;
   display: flex;
 }
 
-main .tasks #taskHolder .taskTitle{
+main .tasksPart .taskHolder .taskTitle{
   margin-left: 8px;
 }
 

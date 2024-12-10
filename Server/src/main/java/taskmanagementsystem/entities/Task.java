@@ -1,5 +1,6 @@
 package taskmanagementsystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,9 +34,9 @@ public class Task {
     @Column(name = "priority")
     private String priority;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @Lazy
     private User user;
 
 }

@@ -1,8 +1,29 @@
-function createDiv() {
-    const data = retrieveTask();
-    const [title, body] = data;
+async function retrieveUserData() {
+    try {
+        const response = await fetch("http://localhost:8080/api/user/6", {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
 
-    const taskHolder = document.getElementById('taskHolder');
+        const userData = await response.json();
+        return userData;
+
+    } catch (error) {
+        console.error("Error fetching tasks:", error);
+    }
+}
+
+
+
+async function createDivForTask(task) {
+    const { title } = task; 
+
+    const tasksHolder = document.getElementById('tasks')
+
+    const taskHolder = document.createElement('div');
+    taskHolder.className = 'taskHolder';
 
     const input = document.createElement('input');
     input.type = 'checkbox';
@@ -12,50 +33,36 @@ function createDiv() {
     taskTitle.textContent = title;
     taskTitle.className = 'taskTitle';
 
-
-    taskHolder.appendChild(input)
+    taskHolder.appendChild(input);
     taskHolder.appendChild(taskTitle);
 
+    tasksHolder.appendChild(taskHolder);
 }
 
-function retrieveTask() {
-    let task = ["Gym", "Go to the gym"];
-    return task;
-}
 
-function getUserName() {
-    return fetch("http://localhost:8080/api/user/8", {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then((data) => {
-        console.log("Response from server:", data);
-        return data.name; 
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-        throw error;
+async function printUserData(){
+    const userData = await retrieveUserData();
+    const tasks = userData.tasks 
+
+    updateGreeting(userData.name);
+
+    tasks.forEach(task => {
+        createDivForTask(task);
     });
+
+    return userData.id;
 }
-async function updateGreeting() {
+
+async function updateGreeting(name) {
     try {
-        const name = await getUserName(); 
         const welcomingElement = document.getElementById('welcoming');
-        welcomingElement.textContent = `Hello, ${name}`; 
+        welcomingElement.textContent = `Hello, ${name}!`; 
     } catch (error) {
         console.error("Failed to retrieve username:", error);
     }
 }
 
-updateGreeting();
 
+const currentUserId = printUserData();
 
-createDiv();
+console.log(currentUserId)
