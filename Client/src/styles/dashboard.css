@@ -188,3 +188,53 @@ main .tasksPart .taskHolder .taskTitle{
   margin-left: 8px;
 }
 
+.addTaskSection {
+  display: none; 
+  position: absolute; 
+  z-index: 1000; 
+  background: white; 
+  padding: 10px; 
+  border: 1px solid #ddd; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  width: 410px; 
+  height: 200px;
+  margin-top: -400px;
+  margin-left: 600px;
+}
+
+#addTaskSection{
+  align-items: center;
+  justify-content: center;
+}
+
+
+#addTaskForm #taskTitle{
+  border-color: #f97316;
+  border-radius: 5px;
+  width: 400px;
+  height: 40px;
+}
+
+#addTaskForm #taskDescription{
+  border-color: #f97316;
+  border-radius: 5px;
+  width: 400px;
+  height: 100px;
+  margin-top: 5px;
+  resize: none;
+}
+
+#dueDate{
+  border-radius: 5px;
+  border-color: #f97316;
+}
+
+#addTaskForm button{
+  border-color: #f97316;
+  background-color: white;
+  border-radius: 5px;
+  margin-left: 300px;
+  margin-top: -40px;
+  display: flex;
+}
+

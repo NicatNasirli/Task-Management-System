@@ -1,6 +1,5 @@
 package taskmanagementsystem.business.concrates;
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import taskmanagementsystem.business.abstracts.UserService;
@@ -12,9 +11,7 @@ import taskmanagementsystem.entities.Role;
 import taskmanagementsystem.entities.User;
 import taskmanagementsystem.utilities.mapper.ModelMapperService;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component
 @AllArgsConstructor
@@ -32,16 +29,17 @@ public class UserManager implements UserService {
         } else return user;
     }
 
+
     @Override
     public void add(CreateUserRequest createUserRequest) {
+        Role role = this.roleRepository.findById(1);
         User user = this.modelMapper
                 .forRequest()
                 .map(createUserRequest, User.class);
-
-        Role role = this.roleRepository.findById(1);
-        user.setRoles(Set.of(role));
+        user.setRoles(List.of(role));
         this.userRepository.save(user);
     }
+
 
     @Override
     public GetUserResponse findByEmailAndPassword(String email, String password) {
@@ -74,7 +72,7 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public Set<Role> getUserRoles(int id) {
+    public List<Role> getUserRoles(int id) {
         User user = this.userRepository.findById(id);
         if (user == null) {
             throw new RuntimeException("User does not exist!");

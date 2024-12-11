@@ -1,6 +1,16 @@
+
+function toggleAddTaskSection() {
+    const addTaskSection = document.querySelector('.addTaskSection');
+    addTaskSection.style.display = (addTaskSection.style.display === 'none' || addTaskSection.style.display === '') ? 'block' : 'none';
+  }
+  
+  document.getElementById('addTask').addEventListener('click', toggleAddTaskSection);
+  
+
+
 async function retrieveUserData() {
     try {
-        const response = await fetch("http://localhost:8080/api/user/6", {
+        const response = await fetch("http://localhost:8080/api/user/2", {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -63,6 +73,6 @@ async function updateGreeting(name) {
 }
 
 
-const currentUserId = printUserData();
 
+const currentUserId = printUserData();
 console.log(currentUserId)

@@ -7,7 +7,6 @@ import taskmanagementsystem.entities.Role;
 import taskmanagementsystem.entities.User;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public interface UserService {
@@ -16,7 +15,7 @@ public interface UserService {
     GetUserResponse findByEmailAndPassword(String email, String password);
     void delete(int id);
     List<GetUserResponse> getAll();
-    Set<Role> getUserRoles(int id);
+    List<Role> getUserRoles(int id);
     GetUserResponse signIn(CreateUserRequest createUserRequest);
     GetUserResponse getById(int id);
 }

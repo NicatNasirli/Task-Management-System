@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Lazy;
 import taskmanagementsystem.security.CustomUserDetails;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,13 +37,13 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Task> tasks;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.REMOVE,CascadeType.DETACH,CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.REMOVE,CascadeType.DETACH})
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private List<Role> roles = new ArrayList<>();
 
     public CustomUserDetails userDetails() {
         return new CustomUserDetails(this);

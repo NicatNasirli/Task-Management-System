@@ -11,7 +11,7 @@
 
 <body>
 
-  <nav>
+ <nav>
     <div class="logo">
       <a href="#">Task Manager</a>
       <img src="../images/logo.jpeg" alt="Logo">
@@ -28,13 +28,15 @@
 
   <div class="content">
     <div class="sideBar">
-      <button>
-        <p class="sideBar centerAlign"><a href="">
-            <p>Add Task <b>+</b> </p>
-          </a></p>
+      <button id="addTask">
+        <p class="sideBar centerAlign">
+          <p>Add Task <b>+</b></p>
+        </p>
       </button>
       <ul>
-        <div class="statusBar"><li><a href="#">Dashboard</a></li></div>
+        <div class="statusBar">
+          <li><a href="#">Dashboard</a></li>
+        </div>
         <li><a href="#">Active</a></li>
         <li><a href="#">Completed</a></li>
       </ul>
@@ -53,6 +55,14 @@
     </main>
   </div>
 
+  <div class="addTaskSection" style="display: none;">
+    <form id="addTaskForm">
+      <input type="text" id="taskTitle" placeholder="Add Title" required>
+      <textarea id="taskDescription" placeholder="Task Description" required></textarea>
+       <p>Deadline <input type="date" id="dueDate" required></p>
+      <button type="submit">Add Task</button>
+    </form>
+  </div>
 
   <script src="../scripts/dashboard.js"></script>
 </body>

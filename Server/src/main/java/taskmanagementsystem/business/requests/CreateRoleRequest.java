@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CreateRoleRequest {
+    private Long id;
     private String role;
 }
