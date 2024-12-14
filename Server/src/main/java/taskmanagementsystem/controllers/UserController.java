@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import taskmanagementsystem.business.abstracts.UserService;
 import taskmanagementsystem.business.requests.CreateUserRequest;
+import taskmanagementsystem.business.requests.UserSignInRequest;
 import taskmanagementsystem.business.responses.GetUserResponse;
 import taskmanagementsystem.entities.User;
 
@@ -30,8 +31,8 @@ public class UserController {
     }
 
     @PostMapping("/signIn")
-    public ResponseEntity<GetUserResponse> signIn(@RequestBody CreateUserRequest createUserRequest){
-        return ResponseEntity.ok(this.userService.signIn(createUserRequest));
+    public ResponseEntity<GetUserResponse> signIn(@RequestBody UserSignInRequest userSignInRequest){
+        return ResponseEntity.ok(this.userService.signIn(userSignInRequest));
     }
 
     @DeleteMapping("/{id}")

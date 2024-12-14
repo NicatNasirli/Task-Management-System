@@ -32,7 +32,8 @@ public class Task {
     private String status;
 
     @Column(name = "priority")
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
 
     @JsonIgnore
     @ManyToOne

@@ -1,6 +1,7 @@
 package taskmanagementsystem.controllers;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import taskmanagementsystem.business.abstracts.TaskService;
@@ -19,7 +20,7 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<String> add(@RequestBody CreateTaskRequest createTaskRequest) {
         this.taskService.add(createTaskRequest);
-        return ResponseEntity.ok("Task created!");
+        return new ResponseEntity<>("Task created!", HttpStatus.CREATED);
     }
 
     @GetMapping

@@ -11,7 +11,7 @@
 
 <body>
 
- <nav>
+  <nav>
     <div class="logo">
       <a href="#">Task Manager</a>
       <img src="../images/logo.jpeg" alt="Logo">
@@ -30,7 +30,7 @@
     <div class="sideBar">
       <button id="addTask">
         <p class="sideBar centerAlign">
-          <p>Add Task <b>+</b></p>
+        <p>Add Task <b>+</b></p>
         </p>
       </button>
       <ul>
@@ -56,11 +56,21 @@
   </div>
 
   <div class="addTaskSection" style="display: none;">
+
     <form id="addTaskForm">
       <input type="text" id="taskTitle" placeholder="Add Title" required>
       <textarea id="taskDescription" placeholder="Task Description" required></textarea>
-       <p>Deadline <input type="date" id="dueDate" required></p>
+      <p>Deadline <input type="date" id="dueDate" required></p>
       <button type="submit">Add Task</button>
+      <div class="prioity">
+        <label for="selectPriority">Priority </label>
+        <select name="select" id="selectPriority">
+          <option value="URGENT">URGENT</option>
+          <option value="HIGH">HIGH</option>
+          <option value="MEDIUM">MEDIUM</option>
+          <option value="LOW">LOW</option>
+        </select>
+      </div>
     </form>
   </div>
 

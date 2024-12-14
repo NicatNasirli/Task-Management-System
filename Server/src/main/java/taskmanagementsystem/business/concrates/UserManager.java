@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import taskmanagementsystem.business.abstracts.UserService;
 import taskmanagementsystem.business.requests.CreateUserRequest;
+import taskmanagementsystem.business.requests.UserSignInRequest;
 import taskmanagementsystem.business.responses.GetUserResponse;
 import taskmanagementsystem.dataAccess.abstracts.RoleRepository;
 import taskmanagementsystem.dataAccess.abstracts.UserRepository;
@@ -79,21 +80,17 @@ public class UserManager implements UserService {
         } else return user.getRoles();
     }
 
-    @Override
-    public GetUserResponse signIn(CreateUserRequest createUserRequest) {
-        User user = this.userRepository.findByEmailAndPassword(
-                createUserRequest.getEmail(), createUserRequest.getPassword());
-        if (user == null) {
-            throw new RuntimeException("User does not exists!");
-        } else return this.modelMapper
-                .forResponse()
-                .map(user, GetUserResponse.class);
-    }
 
     @Override
     public GetUserResponse getById(int id) {
         return this.modelMapper
                 .forResponse()
                 .map(this.userRepository.findById(id), GetUserResponse.class);
+    }
+
+    @Override
+    public GetUserResponse signIn(UserSignInRequest userSignInRequest) {
+         return this.findByEmailAndPassword(
+                 userSignInRequest.getEmail(),userSignInRequest.getPassword());
     }
 }

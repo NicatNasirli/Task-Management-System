@@ -45,7 +45,6 @@ body {
     border-radius: 8px;
     border: 1px solid #e4e4e4;
     background-color: #f7f7f7;
-    color: white;
     font-size: 1rem;
     outline: none;
   }
@@ -54,10 +53,10 @@ body {
     border-color: #f97316;
   }
   
-  .signInCard .passwordIcon {
-    position: absolute;
-    top: 12px;
-    right: 12px;
+  .inputContainer .passwordIcon {
+    display: flex;
+    margin-left: 350px;
+    margin-top: -35px;
     font-size: 1.2rem;
     cursor: pointer;
     color: white;
@@ -66,6 +65,7 @@ body {
   .signInCard .submitBtn {
     width: 100%;
     padding: 1rem;
+    margin-top: 10px;
     background-color: #f97316;
     color: white;
     font-weight: bold;

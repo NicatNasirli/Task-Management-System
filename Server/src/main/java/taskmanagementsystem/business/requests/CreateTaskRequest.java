@@ -15,4 +15,5 @@ public class CreateTaskRequest {
     private LocalDate deadline;
     private String status;
     private String priority;
+    private Long userId;
 }

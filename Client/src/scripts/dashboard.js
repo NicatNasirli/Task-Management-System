@@ -1,37 +1,14 @@
 
+
 function toggleAddTaskSection() {
     const addTaskSection = document.querySelector('.addTaskSection');
     addTaskSection.style.display = (addTaskSection.style.display === 'none' || addTaskSection.style.display === '') ? 'block' : 'none';
-  }
-  
-  document.getElementById('addTask').addEventListener('click', toggleAddTaskSection);
-  
-
-
-async function retrieveUserData() {
-    try {
-        const response = await fetch("http://localhost:8080/api/user/2", {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        const userData = await response.json();
-        return userData;
-
-    } catch (error) {
-        console.error("Error fetching tasks:", error);
-    }
 }
 
 
-
-async function createDivForTask(task) {
+function createDivForTask(task) {
     const { title } = task; 
-
-    const tasksHolder = document.getElementById('tasks')
-
+    const tasksHolder = document.getElementById('tasks');
     const taskHolder = document.createElement('div');
     taskHolder.className = 'taskHolder';
 
@@ -45,34 +22,99 @@ async function createDivForTask(task) {
 
     taskHolder.appendChild(input);
     taskHolder.appendChild(taskTitle);
-
     tasksHolder.appendChild(taskHolder);
 }
 
 
-async function printUserData(){
-    const userData = await retrieveUserData();
-    const tasks = userData.tasks 
-
-    updateGreeting(userData.name);
-
-    tasks.forEach(task => {
-        createDivForTask(task);
-    });
-
-    return userData.id;
+function updateGreeting(name) {
+    const welcomingElement = document.getElementById('welcoming');
+    welcomingElement.textContent = `Hello, ${name}!`;
 }
 
-async function updateGreeting(name) {
+
+
+async function loadUserData(currentUserId) {
+    if (!currentUserId) {
+        alert("No user ID found. Please log in again.");
+        window.location.href = './signin.html'; 
+        return;
+    }
+
     try {
-        const welcomingElement = document.getElementById('welcoming');
-        welcomingElement.textContent = `Hello, ${name}!`; 
+        const response = await fetch(`http://localhost:8080/api/user/${currentUserId}`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const userData = await response.json();
+        updateGreeting(userData.name);
+
+        const tasks = userData.tasks || [];
+        tasks.forEach(task => {
+            createDivForTask(task);
+        });
+
     } catch (error) {
-        console.error("Failed to retrieve username:", error);
+        console.error("Error fetching user data:", error);
+        alert("Failed to load user data. Please try again.");
+        window.location.href = './signin.html'; 
     }
 }
 
 
 
-const currentUserId = printUserData();
-console.log(currentUserId)
+async function submitTaskForm(event) {
+    event.preventDefault(); 
+
+    const currentUserId = localStorage.getItem('currentUserId'); 
+    const taskTitle = document.getElementById('taskTitle').value.trim(); 
+    const taskDescription = document.getElementById('taskDescription').value.trim(); 
+    const dueDate = document.getElementById('dueDate').value.trim(); 
+    const priority = document.getElementById('selectPriority').value;
+
+    try {
+        const response = await fetch('http://localhost:8080/api/task', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: taskTitle,
+                description: taskDescription,
+                deadline: dueDate,
+                status: "Undone",
+                priority: priority,
+                userId: JSON.parse(currentUserId), 
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const newTask = await response.json(); 
+        console.log('Task created:', newTask); 
+        alert('Task added successfully!'); 
+
+        document.getElementById('addTaskForm').reset(); 
+
+    } catch (error) {
+        console.error('Error adding task:', error);
+        alert('Failed to add task. Please try again.');
+    }
+}
+
+
+
+const currentUserId = localStorage.getItem('currentUserId');
+
+document.addEventListener('DOMContentLoaded', loadUserData(JSON.parse(currentUserId)));
+document.getElementById('addTaskForm').addEventListener('submit', submitTaskForm);
+document.getElementById('addTask').addEventListener('click', toggleAddTaskSection);
+

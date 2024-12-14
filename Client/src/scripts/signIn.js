@@ -1,4 +1,3 @@
-
 document.getElementById('signInForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
@@ -8,19 +7,29 @@ document.getElementById('signInForm').addEventListener('submit', function (event
     fetch("http://localhost:8080/api/user/signIn", {
         method: 'POST',
         headers: {
-            "Content-Type": "application/JSON",
+            "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            email,
-            password,
+            email: email.trim(),
+            password: password.trim(),
+        }),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
         })
-    }
-    )
-        .then((response) => response.json())
         .then((data) => {
             console.log("Response from server:", data);
+            alert("Sign-in successful!");
+            
+            localStorage.setItem('currentUserId', JSON.stringify(data.id));
+            
+            window.location.href = './dashboard.html';
         })
         .catch((error) => {
             console.error("Error:", error);
+            alert("Sign-in failed. Please check your credentials.");
         });
-})
+});
