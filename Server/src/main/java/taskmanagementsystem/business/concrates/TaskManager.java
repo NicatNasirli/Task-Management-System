@@ -1,12 +1,15 @@
 package taskmanagementsystem.business.concrates;
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import taskmanagementsystem.business.abstracts.TaskService;
 import taskmanagementsystem.business.requests.CreateTaskRequest;
 import taskmanagementsystem.business.responses.GetTaskResponse;
 import taskmanagementsystem.dataAccess.abstracts.TaskRepository;
+import taskmanagementsystem.dataAccess.abstracts.UserRepository;
 import taskmanagementsystem.entities.Task;
+import taskmanagementsystem.entities.User;
 import taskmanagementsystem.utilities.mapper.ModelMapperService;
 
 import java.util.List;
@@ -16,14 +19,16 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class TaskManager implements TaskService {
     private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
     private final ModelMapperService modelMapperService;
 
+    @Transactional
     @Override
     public void add(CreateTaskRequest createTaskRequest) {
         Task task = this.modelMapperService.
                 forRequest()
                 .map(createTaskRequest, Task.class);
-
+        task.setUser(this.userRepository.findById(createTaskRequest.getUserId()).get());
         this.taskRepository.save(task);
     }
 
@@ -37,5 +42,11 @@ public class TaskManager implements TaskService {
                         .forResponse()
                         .map(task, GetTaskResponse.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteAllByUser(int id) {
+        User user = this.userRepository.findById(id);
+        this.taskRepository.deleteAllByUser(user);
     }
 }

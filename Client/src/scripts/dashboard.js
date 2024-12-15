@@ -105,8 +105,37 @@ async function submitTaskForm(event) {
         document.getElementById('addTaskForm').reset(); 
 
     } catch (error) {
+        console.log(JSON.parse(currentUserId));
         console.error('Error adding task:', error);
         alert('Failed to add task. Please try again.');
+    }
+}
+
+
+async function deleteAll(event) {
+    event.preventDefault();
+
+    const currentUserId = localStorage.getItem('currentUserId'); 
+    const userId = JSON.parse(currentUserId);
+
+    try{
+        const response = await fetch(`http://localhost:8080/api/task/${userId}`,{
+            method:'DELETE',
+            headers:{
+                'Content-Type': 'application/json',
+            }
+        });
+        if(!response.ok){
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        console.log("Tasks are deleted!");
+        alert('Tasks are deleted successfully!');
+
+
+    } catch (error) {
+        console.error('Error deleting task:', error);
+        alert('Failed to delete task. Please try again.');
     }
 }
 
@@ -117,4 +146,6 @@ const currentUserId = localStorage.getItem('currentUserId');
 document.addEventListener('DOMContentLoaded', loadUserData(JSON.parse(currentUserId)));
 document.getElementById('addTaskForm').addEventListener('submit', submitTaskForm);
 document.getElementById('addTask').addEventListener('click', toggleAddTaskSection);
+document.getElementById('deleteAll').addEventListener('click', deleteAll);
+
 
