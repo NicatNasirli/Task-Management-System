@@ -25,10 +25,13 @@ public class TaskManager implements TaskService {
     @Transactional
     @Override
     public void add(CreateTaskRequest createTaskRequest) {
+        User user = this.userRepository.findById(createTaskRequest.getUserId()).get();
         Task task = this.modelMapperService.
                 forRequest()
                 .map(createTaskRequest, Task.class);
-        task.setUser(this.userRepository.findById(createTaskRequest.getUserId()).get());
+        System.out.println(task);
+        task.setUser(user);
+//        System.out.println(task);
         this.taskRepository.save(task);
     }
 
