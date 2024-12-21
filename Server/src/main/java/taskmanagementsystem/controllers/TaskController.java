@@ -20,7 +20,7 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<String> add(@RequestBody CreateTaskRequest createTaskRequest) {
         this.taskService.add(createTaskRequest);
-        return new ResponseEntity<>("Task created!", HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Task created!");
     }
 
     @GetMapping

@@ -22,16 +22,17 @@ public class TaskManager implements TaskService {
     private final UserRepository userRepository;
     private final ModelMapperService modelMapperService;
 
-    @Transactional
+
     @Override
     public void add(CreateTaskRequest createTaskRequest) {
         User user = this.userRepository.findById(createTaskRequest.getUserId()).get();
-        Task task = this.modelMapperService.
-                forRequest()
-                .map(createTaskRequest, Task.class);
-        System.out.println(task);
+        Task task = new Task();
+        task.setTitle(createTaskRequest.getTitle());
+        task.setDescription(createTaskRequest.getDescription());
+        task.setDeadline(createTaskRequest.getDeadline());
+        task.setPriority(createTaskRequest.getPriority());
+        task.setStatus(createTaskRequest.getStatus());
         task.setUser(user);
-//        System.out.println(task);
         this.taskRepository.save(task);
     }
 

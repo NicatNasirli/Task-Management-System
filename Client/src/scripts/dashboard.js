@@ -7,7 +7,7 @@ function toggleAddTaskSection() {
 
 
 function createDivForTask(task) {
-    const { title } = task; 
+    const { title } = task;
     const tasksHolder = document.getElementById('tasks');
     const taskHolder = document.createElement('div');
     taskHolder.className = 'taskHolder';
@@ -36,7 +36,7 @@ function updateGreeting(name) {
 async function loadUserData(currentUserId) {
     if (!currentUserId) {
         alert("No user ID found. Please log in again.");
-        window.location.href = './signin.html'; 
+        window.location.href = './signin.html';
         return;
     }
 
@@ -63,19 +63,19 @@ async function loadUserData(currentUserId) {
     } catch (error) {
         console.error("Error fetching user data:", error);
         alert("Failed to load user data. Please try again.");
-        window.location.href = './signin.html'; 
+        window.location.href = './signin.html';
     }
 }
 
 
 
 async function submitTaskForm(event) {
-    event.preventDefault(); 
+    event.preventDefault();
 
-    const currentUserId = localStorage.getItem('currentUserId'); 
-    const taskTitle = document.getElementById('taskTitle').value.trim(); 
-    const taskDescription = document.getElementById('taskDescription').value.trim(); 
-    const dueDate = document.getElementById('dueDate').value.trim(); 
+    const currentUserId = localStorage.getItem('currentUserId');
+    const taskTitle = document.getElementById('taskTitle').value.trim();
+    const taskDescription = document.getElementById('taskDescription').value.trim();
+    const dueDate = document.getElementById('dueDate').value.trim();
     const priority = document.getElementById('selectPriority').value;
 
     try {
@@ -90,22 +90,22 @@ async function submitTaskForm(event) {
                 deadline: dueDate,
                 status: "Undone",
                 priority: priority,
-                userId: JSON.parse(currentUserId), 
+                userId: JSON.parse(currentUserId),
             }),
         });
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
+        } else {
+            const newTask = await response.json();
+            console.log('Task created:', newTask);
+            alert('Task added successfully!');
+
+            document.getElementById('addTaskForm').reset();
         }
 
-        const newTask = await response.json(); 
-        console.log('Task created:', newTask); 
-        alert('Task added successfully!'); 
-
-        document.getElementById('addTaskForm').reset(); 
 
     } catch (error) {
-        console.log(JSON.parse(currentUserId));
         console.error('Error adding task:', error);
         alert('Failed to add task. Please try again.');
     }
@@ -115,17 +115,17 @@ async function submitTaskForm(event) {
 async function deleteAll(event) {
     event.preventDefault();
 
-    const currentUserId = localStorage.getItem('currentUserId'); 
+    const currentUserId = localStorage.getItem('currentUserId');
     const userId = JSON.parse(currentUserId);
 
-    try{
-        const response = await fetch(`http://localhost:8080/api/task/${userId}`,{
-            method:'DELETE',
-            headers:{
+    try {
+        const response = await fetch(`http://localhost:8080/api/task/${userId}`, {
+            method: 'DELETE',
+            headers: {
                 'Content-Type': 'application/json',
             }
         });
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 

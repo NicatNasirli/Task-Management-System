@@ -6,6 +6,6 @@ import lombok.RequiredArgsConstructor;
 public enum Priority {
     URGENT,
     HIGH,
-    MIDDLE,
+    MEDIUM,
     LOW
 }
