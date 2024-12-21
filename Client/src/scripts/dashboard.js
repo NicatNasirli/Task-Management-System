@@ -47,11 +47,6 @@ async function loadUserData(currentUserId) {
                 "Content-Type": "application/json",
             },
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
         const userData = await response.json();
         updateGreeting(userData.name);
 
@@ -93,16 +88,10 @@ async function submitTaskForm(event) {
                 userId: JSON.parse(currentUserId),
             }),
         });
+        
+        alert('Task added successfully!');
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        } else {
-            const newTask = await response.json();
-            console.log('Task created:', newTask);
-            alert('Task added successfully!');
-
-            document.getElementById('addTaskForm').reset();
-        }
+        document.getElementById('addTaskForm').reset();
 
 
     } catch (error) {
@@ -125,9 +114,6 @@ async function deleteAll(event) {
                 'Content-Type': 'application/json',
             }
         });
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
 
         console.log("Tasks are deleted!");
         alert('Tasks are deleted successfully!');
@@ -142,6 +128,8 @@ async function deleteAll(event) {
 
 
 const currentUserId = localStorage.getItem('currentUserId');
+
+console.log(currentUserId);
 
 document.addEventListener('DOMContentLoaded', loadUserData(JSON.parse(currentUserId)));
 document.getElementById('addTaskForm').addEventListener('submit', submitTaskForm);

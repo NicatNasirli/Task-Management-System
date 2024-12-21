@@ -48,6 +48,7 @@ public class TaskManager implements TaskService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public void deleteAllByUser(int id) {
         User user = this.userRepository.findById(id);

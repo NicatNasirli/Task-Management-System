@@ -31,6 +31,6 @@ public class TaskController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTasksByUserId(@PathVariable int id){
         this.taskService.deleteAllByUser(id);
-        return new ResponseEntity<>("All Tasks are Deleted!",HttpStatus.FOUND);
+        return new ResponseEntity<>("All Tasks are Deleted!",HttpStatus.OK);
     }
 }

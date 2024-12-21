@@ -17,11 +17,12 @@ document.getElementById('signUpForm').addEventListener('submit', function (event
             email,
             password,
         })
-    }
-    )
-        .then((response) => response.json())
+    })
         .then((data) => {
             console.log("Response from server:", data);
+            alert("Signed Up!")
+
+            window.location.href = './signin.html';
         })
         .catch((error) => {
             console.error("Error:", error);
