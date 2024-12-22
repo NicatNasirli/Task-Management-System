@@ -7,23 +7,52 @@ function toggleAddTaskSection() {
 
 
 function createDivForTask(task) {
-    const { title } = task;
+    console.log(task);
+    
+    const {title,id,status} = task;
     const tasksHolder = document.getElementById('tasks');
+
     const taskHolder = document.createElement('div');
     taskHolder.className = 'taskHolder';
+    taskHolder.id = `taskHolder${id}`;
 
-    const input = document.createElement('input');
-    input.type = 'checkbox';
-    input.className = 'checkbox';
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'checkbox';
+    checkbox.checked = status === "done"
+    checkbox.id = `checkbox${id}`;
+
+    checkbox.addEventListener('change', () => updateTaskStatus(id, checkbox.checked));
+
 
     const taskTitle = document.createElement('div');
     taskTitle.textContent = title;
     taskTitle.className = 'taskTitle';
+    taskTitle.id = `title${id}`;
 
-    taskHolder.appendChild(input);
+
+    taskHolder.appendChild(checkbox);
     taskHolder.appendChild(taskTitle);
     tasksHolder.appendChild(taskHolder);
 }
+
+
+
+
+async function updateTaskStatus(taskId, isDone) {
+    const status = isDone ? "done" : "undone";
+
+    try {
+        await fetch(`http://localhost:8080/api/task/${taskId}?status=${status}`, {
+            method: "PUT", 
+        });
+
+
+    } catch (error) {
+        console.error(`Error updating task ${taskId}:`, error);
+    }
+}
+
 
 
 function updateGreeting(name) {
@@ -64,7 +93,7 @@ async function loadUserData(currentUserId) {
 
 
 
-async function submitTaskForm(event) {
+async function addTaskForm(event) {
     event.preventDefault();
 
     const currentUserId = localStorage.getItem('currentUserId');
@@ -129,10 +158,9 @@ async function deleteAll(event) {
 
 const currentUserId = localStorage.getItem('currentUserId');
 
-console.log(currentUserId);
 
 document.addEventListener('DOMContentLoaded', loadUserData(JSON.parse(currentUserId)));
-document.getElementById('addTaskForm').addEventListener('submit', submitTaskForm);
+document.getElementById('addTaskForm').addEventListener('submit', addTaskForm);
 document.getElementById('addTask').addEventListener('click', toggleAddTaskSection);
 document.getElementById('deleteAll').addEventListener('click', deleteAll);
 

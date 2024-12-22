@@ -29,8 +29,14 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTasksByUserId(@PathVariable int id){
+    public ResponseEntity<String> deleteTasksByUserId(@PathVariable int id) {
         this.taskService.deleteAllByUser(id);
-        return new ResponseEntity<>("All Tasks are Deleted!",HttpStatus.OK);
+        return new ResponseEntity<>("All Tasks are Deleted!", HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateTaskStatus(@PathVariable int id, @RequestParam String status) {
+        this.taskService.updateTaskStatusById(id, status);
+        return ResponseEntity.ok("Task Updated!");
     }
 }

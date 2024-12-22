@@ -52,6 +52,20 @@ public class TaskManager implements TaskService {
     @Override
     public void deleteAllByUser(int id) {
         User user = this.userRepository.findById(id);
-        this.taskRepository.deleteAllByUser(user);
+        if (user == null){
+            throw new RuntimeException("User does not exists!");
+        }else this.taskRepository.deleteAllByUser(user);
+    }
+
+    @Override
+    public void updateTaskStatusById(int id, String status) {
+        boolean ifTaskExists = this.taskRepository.findById((long)id).isPresent();
+        if (!ifTaskExists){
+            throw new RuntimeException("Task does not exists!");
+        }else {
+            Task task = this.taskRepository.findById((long)id).get();
+            task.setStatus(status);
+            this.taskRepository.save(task);
+        }
     }
 }
