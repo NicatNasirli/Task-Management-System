@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link href="../styles/mainPage.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <a href="#">Task Manager</a>
+            <img src="../images/logo.jpeg" alt="Logo">
+            <h2>Active</h2>
+        </div>
+
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="./index.html">Sign Out</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <div class="sideBar">
+            <button id="addTask">
+                <p class="sideBar centerAlign">
+                <p>Add Task <b>+</b></p>
+                </p>
+            </button>
+            <ul>
+                <li><a href="./dashboard.html">Dashboard</a></li>
+                <div class="statusBar">
+                    <li><a href="#">Active</a></li>
+                </div>
+                <li><a href="./completed.html">Completed</a></li>
+            </ul>
+        </div>
+
+        <main>
+            <div class="welcoming">
+                <h1 id="welcoming">Hello, </h1>
+            </div>
+
+            <div class="tasksPart">
+                <h2>Today's Tasks</h2>
+                <button id="deleteAll">Delete All</button>
+                <div id="tasks"></div>
+            </div>
+        </main>
+    </div>
+
+    <div class="addTaskSection" style="display: none;">
+
+        <form id="addTaskForm">
+            <input type="text" id="taskTitle" placeholder="Add Title" required>
+            <textarea id="taskDescription" placeholder="Task Description" required></textarea>
+            <p>Deadline <input type="date" id="dueDate" required></p>
+            <button type="submit">Add Task</button>
+            <div class="prioity">
+                <label for="selectPriority">Priority </label>
+                <select name="select" id="selectPriority">
+                    <option value="URGENT">URGENT</option>
+                    <option value="HIGH">HIGH</option>
+                    <option value="MEDIUM">MEDIUM</option>
+                    <option value="LOW">LOW</option>
+                </select>
+            </div>
+        </form>
+    </div>
+
+    <script src="../scripts/mainPage.js"></script>
+</body>
+
+</html>
