@@ -1,3 +1,5 @@
+const currentUserId = localStorage.getItem('currentUserId');
+
 
 
 function toggleAddTaskSection() {
@@ -8,8 +10,8 @@ function toggleAddTaskSection() {
 
 function createDivForTask(task) {
     console.log(task);
-    
-    const {title,id,status} = task;
+
+    const { title, id, status } = task;
     const tasksHolder = document.getElementById('tasks');
 
     const taskHolder = document.createElement('div');
@@ -44,7 +46,7 @@ async function updateTaskStatus(taskId, isDone) {
 
     try {
         await fetch(`http://localhost:8080/api/task/${taskId}?status=${status}`, {
-            method: "PUT", 
+            method: "PUT",
         });
 
 
@@ -80,15 +82,39 @@ async function loadUserData(currentUserId) {
         updateGreeting(userData.name);
 
         const tasks = userData.tasks || [];
-        tasks.forEach(task => {
-            createDivForTask(task);
-        });
+        return tasks;
 
     } catch (error) {
         console.error("Error fetching user data:", error);
         alert("Failed to load user data. Please try again.");
         window.location.href = './signin.html';
     }
+}
+
+async function activeUserTasks(currentUserId) {
+    const tasks = await loadUserData(currentUserId);
+    tasks.forEach(task => {
+        if (task.status !== "done") {
+            createDivForTask(task);
+        }
+    });
+
+}
+
+async function completedTasks(currentUserId) {
+    const tasks = await loadUserData(currentUserId);
+    tasks.forEach(task => {
+        if (task.status === "done") {
+            createDivForTask(task);
+        }
+    });
+}
+
+async function dashboardTasks(currentUserId) {
+    const tasks = await loadUserData(currentUserId);
+    tasks.forEach(task => {
+        createDivForTask(task);
+    });
 }
 
 
@@ -117,7 +143,7 @@ async function addTaskForm(event) {
                 userId: JSON.parse(currentUserId),
             }),
         });
-        
+
         alert('Task added successfully!');
 
         document.getElementById('addTaskForm').reset();
@@ -156,12 +182,15 @@ async function deleteAll(event) {
 
 
 
-const currentUserId = localStorage.getItem('currentUserId');
 
 
-document.addEventListener('DOMContentLoaded', loadUserData(JSON.parse(currentUserId)));
 document.getElementById('addTaskForm').addEventListener('submit', addTaskForm);
 document.getElementById('addTask').addEventListener('click', toggleAddTaskSection);
 document.getElementById('deleteAll').addEventListener('click', deleteAll);
+if (document.body.id === 'activeTasks') {
+    document.addEventListener("DOMContentLoaded", () => activeUserTasks(currentUserId));
+} else if (document.body.id === 'completedTasks') {
+    document.addEventListener("DOMContentLoaded", () => completedTasks(currentUserId));
+}else  document.addEventListener("DOMContentLoaded", () => dashboardTasks(currentUserId));
 
 
