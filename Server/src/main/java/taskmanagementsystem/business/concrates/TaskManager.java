@@ -50,8 +50,8 @@ public class TaskManager implements TaskService {
 
     @Transactional
     @Override
-    public void deleteAllByUser(int id) {
-        User user = this.userRepository.findById(id);
+    public void deleteAllByUser(int userId) {
+        User user = this.userRepository.findById(userId);
         if (user == null){
             throw new RuntimeException("User does not exists!");
         }else this.taskRepository.deleteAllByUser(user);
@@ -67,5 +67,18 @@ public class TaskManager implements TaskService {
             task.setStatus(status);
             this.taskRepository.save(task);
         }
+    }
+
+    @Override
+    public void deleteTaskById(int id) {
+        Task task = this.taskRepository.findById((long)id).get();
+        this.taskRepository.delete(task);
+    }
+
+    @Transactional
+    @Override
+    public void deleteAllTaskByUserAndStatus(int userId, String status) {
+        User user = this.userRepository.findById(userId);
+        this.taskRepository.deleteAllByUserAndStatus(user, status);
     }
 }

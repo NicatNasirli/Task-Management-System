@@ -93,29 +93,65 @@ async function loadUserData(currentUserId) {
 
 async function activeUserTasks(currentUserId) {
     const tasks = await loadUserData(currentUserId);
+    const activeTasks = [];
     tasks.forEach(task => {
         if (task.status !== "done") {
             createDivForTask(task);
+            activeTasks.push(task);
         }
     });
+    localStorage.setItem('activeTasks', activeTasks);
 
 }
 
 async function completedTasks(currentUserId) {
     const tasks = await loadUserData(currentUserId);
+    const completedTasks = [];
     tasks.forEach(task => {
         if (task.status === "done") {
             createDivForTask(task);
+            completedTasks.push(task);
         }
     });
+    localStorage.setItem('completeTasks', completedTasks);
+
 }
 
 async function dashboardTasks(currentUserId) {
     const tasks = await loadUserData(currentUserId);
+    const dashboardTasks = [];
     tasks.forEach(task => {
         createDivForTask(task);
+        dashboardTasks.push(task);
     });
+    localStorage.setItem('dashboardTasks', dashboardTasks);
 }
+
+
+async function deleteTasks(status) {
+
+    const currentUserId = localStorage.getItem('currentUserId');
+    const userId = JSON.parse(currentUserId);
+
+    try {
+        await fetch(`http://localhost:8080/api/task/deleteAllByStatus/${userId}?status=${status}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        console.log(status);
+        console.log("Tasks are deleted!");
+        alert('Tasks are deleted successfully!');
+
+
+    } catch (error) {
+        console.error('Error deleting task:', error);
+        alert('Failed to delete task. Please try again.');
+    }
+}
+
 
 
 
@@ -138,7 +174,7 @@ async function addTaskForm(event) {
                 title: taskTitle,
                 description: taskDescription,
                 deadline: dueDate,
-                status: "Undone",
+                status: "undone",
                 priority: priority,
                 userId: JSON.parse(currentUserId),
             }),
@@ -163,7 +199,7 @@ async function deleteAll(event) {
     const userId = JSON.parse(currentUserId);
 
     try {
-        const response = await fetch(`http://localhost:8080/api/task/${userId}`, {
+        await fetch(`http://localhost:8080/api/task/deleteAllByUserId/${userId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -183,14 +219,19 @@ async function deleteAll(event) {
 
 
 
-
 document.getElementById('addTaskForm').addEventListener('submit', addTaskForm);
 document.getElementById('addTask').addEventListener('click', toggleAddTaskSection);
-document.getElementById('deleteAll').addEventListener('click', deleteAll);
+
 if (document.body.id === 'activeTasks') {
     document.addEventListener("DOMContentLoaded", () => activeUserTasks(currentUserId));
+    document.getElementById('deleteAll').onclick = () => deleteTasks("undone");
 } else if (document.body.id === 'completedTasks') {
     document.addEventListener("DOMContentLoaded", () => completedTasks(currentUserId));
-}else  document.addEventListener("DOMContentLoaded", () => dashboardTasks(currentUserId));
+    document.getElementById('deleteAll').onclick = () => deleteTasks("done");
+} else {
+    document.addEventListener("DOMContentLoaded", () => dashboardTasks(currentUserId));
+    document.getElementById('deleteAll').addEventListener('click', deleteAll);
+}
+
 
 

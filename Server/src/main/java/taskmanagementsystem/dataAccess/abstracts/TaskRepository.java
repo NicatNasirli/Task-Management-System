@@ -11,4 +11,5 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Long> {
     void deleteAllByUser(User user);
     List<Task> findAllByUser(User user);
+    void deleteAllByUserAndStatus(User user, String status);
 }

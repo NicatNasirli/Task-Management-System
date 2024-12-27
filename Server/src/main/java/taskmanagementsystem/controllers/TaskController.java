@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @AllArgsConstructor
-@RestController()
+@RestController
 @RequestMapping("api/task")
 public class TaskController {
     private final TaskService taskService;
@@ -28,9 +28,9 @@ public class TaskController {
         return ResponseEntity.ok(this.taskService.getAll());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTasksByUserId(@PathVariable int id) {
-        this.taskService.deleteAllByUser(id);
+    @DeleteMapping("/deleteAllByUserId/{userId}")
+    public ResponseEntity<String> deleteTasksByUserId(@PathVariable int userId) {
+        this.taskService.deleteAllByUser(userId);
         return new ResponseEntity<>("All Tasks are Deleted!", HttpStatus.OK);
     }
 
@@ -38,5 +38,19 @@ public class TaskController {
     public ResponseEntity<String> updateTaskStatus(@PathVariable int id, @RequestParam String status) {
         this.taskService.updateTaskStatusById(id, status);
         return ResponseEntity.ok("Task Updated!");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteTaskById(@PathVariable int id){
+        this.taskService.deleteTaskById(id);
+        return ResponseEntity.ok("Task Deleted");
+    }
+
+    @DeleteMapping("/deleteAllByStatus/{userId}")
+    public ResponseEntity<String> deleteAllTaskByUserAndStatus(@PathVariable int userId,
+                                                               @RequestParam String status){
+
+        this.taskService.deleteAllTaskByUserAndStatus(userId, status);
+        return ResponseEntity.ok("Successfully deleted!");
     }
 }

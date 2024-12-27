@@ -10,6 +10,8 @@ import java.util.List;
 public interface TaskService {
     void add(CreateTaskRequest task);
     List<GetTaskResponse> getAll();
-    void deleteAllByUser(int id);
+    void deleteAllByUser(int userId);
     void updateTaskStatusById(int id, String status);
+    void deleteTaskById(int id);
+    void deleteAllTaskByUserAndStatus(int userId, String status);
 }
