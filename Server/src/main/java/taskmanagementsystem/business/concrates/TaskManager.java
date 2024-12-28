@@ -81,4 +81,17 @@ public class TaskManager implements TaskService {
         User user = this.userRepository.findById(userId);
         this.taskRepository.deleteAllByUserAndStatus(user, status);
     }
+
+    @Override
+    public GetTaskResponse getTaskById(int id) {
+        boolean ifTaskExists = this.taskRepository.findById((long)id).isPresent();
+        if (!ifTaskExists){
+            throw new RuntimeException("Task does not exists!");
+        }else {
+            Task task = this.taskRepository.findById((long)id).get();
+            return this.modelMapperService
+                    .forResponse()
+                    .map(task, GetTaskResponse.class);
+        }
+    }
 }

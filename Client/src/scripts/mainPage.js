@@ -9,7 +9,6 @@ function toggleAddTaskSection() {
 
 
 function createDivForTask(task) {
-    console.log(task);
 
     const { title, id, status } = task;
     const tasksHolder = document.getElementById('tasks');
@@ -32,11 +31,67 @@ function createDivForTask(task) {
     taskTitle.className = 'taskTitle';
     taskTitle.id = `title${id}`;
 
+    taskTitle.addEventListener('click', () => openTaskDetails(id));
 
     taskHolder.appendChild(checkbox);
     taskHolder.appendChild(taskTitle);
     tasksHolder.appendChild(taskHolder);
 }
+
+
+
+async function openTaskDetails(id) {
+    try {
+        const response = await fetch(`http://localhost:8080/api/task/${id}`, {
+            method: "GET",
+        });
+
+        const task = await response.json();
+
+        const { title, description, status, deadline, priority } = task;
+
+        const taskContent = document.createElement('div');
+        taskContent.className = 'taskContent';
+
+        taskContent.innerHTML = `
+            <h3>Task Details</h3>
+            <p><strong>Title:</strong> ${title}</p>
+            <p><strong>Description:</strong> ${description}</p>
+            <p><strong>Status:</strong> ${status}</p>
+            <p><strong>Deadline:</strong> ${deadline}</p>
+            <p><strong>Priority:</strong> ${priority}</p>
+            <button class="deleteButton">Delete</button>
+        `;
+
+        const tasksHolder = document.getElementById('tasks');
+        tasksHolder.appendChild(taskContent);
+
+        const closeDetails = (event) => {
+            if (!taskContent.contains(event.target)) {
+                tasksHolder.removeChild(taskContent);
+                document.removeEventListener('click', closeDetails);
+            }
+        };
+
+        document.addEventListener('click', closeDetails);
+
+        const deleteButton = taskContent.querySelector('.deleteButton');
+        deleteButton.addEventListener('click', async () => {
+            const confirmed = confirm('Are you sure you want to delete this task?');
+            if (confirmed) {
+                await fetch(`http://localhost:8080/api/task/${id}`, {
+                    method: 'DELETE',
+                });
+                tasksHolder.removeChild(taskContent);
+                alert('Task deleted successfully!');
+            }
+        });
+    } catch (error) {
+        console.error(`Error fetching task ${id}:`, error);
+    }
+}
+
+
 
 
 
@@ -127,11 +182,15 @@ async function dashboardTasks(currentUserId) {
     localStorage.setItem('dashboardTasks', dashboardTasks);
 }
 
-
 async function deleteTasks(status) {
-
     const currentUserId = localStorage.getItem('currentUserId');
     const userId = JSON.parse(currentUserId);
+
+    const confirmation = confirm(`Are you sure you want to delete all?`);
+
+    if (!confirmation) {
+        return;
+    }
 
     try {
         await fetch(`http://localhost:8080/api/task/deleteAllByStatus/${userId}?status=${status}`, {
@@ -141,11 +200,8 @@ async function deleteTasks(status) {
             }
         });
 
-        console.log(status);
         console.log("Tasks are deleted!");
         alert('Tasks are deleted successfully!');
-
-
     } catch (error) {
         console.error('Error deleting task:', error);
         alert('Failed to delete task. Please try again.');
@@ -197,6 +253,13 @@ async function deleteAll(event) {
 
     const currentUserId = localStorage.getItem('currentUserId');
     const userId = JSON.parse(currentUserId);
+
+    const confirmation = confirm(`Are you sure you want to delete all?`);
+
+    if (!confirmation) {
+        return;
+    }
+
 
     try {
         await fetch(`http://localhost:8080/api/task/deleteAllByUserId/${userId}`, {

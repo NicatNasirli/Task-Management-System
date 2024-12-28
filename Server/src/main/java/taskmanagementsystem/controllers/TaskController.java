@@ -53,4 +53,9 @@ public class TaskController {
         this.taskService.deleteAllTaskByUserAndStatus(userId, status);
         return ResponseEntity.ok("Successfully deleted!");
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GetTaskResponse> getTaskById(@PathVariable int id){
+        return ResponseEntity.ok(this.taskService.getTaskById(id));
+    }
 }
