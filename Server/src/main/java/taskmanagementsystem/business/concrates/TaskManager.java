@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import taskmanagementsystem.business.abstracts.TaskService;
 import taskmanagementsystem.business.requests.CreateTaskRequest;
+import taskmanagementsystem.business.requests.UpdateTaskRequest;
 import taskmanagementsystem.business.responses.GetTaskResponse;
 import taskmanagementsystem.dataAccess.abstracts.TaskRepository;
 import taskmanagementsystem.dataAccess.abstracts.UserRepository;
@@ -92,6 +93,22 @@ public class TaskManager implements TaskService {
             return this.modelMapperService
                     .forResponse()
                     .map(task, GetTaskResponse.class);
+        }
+    }
+
+    @Override
+    public void updateTask(UpdateTaskRequest updateTaskRequest) {
+        boolean ifTaskExists = this.taskRepository.findById(updateTaskRequest.getId()).isPresent();
+        if (!ifTaskExists){
+            throw new RuntimeException("Task does not exists!");
+        }else {
+            Task task = this.taskRepository.findById(updateTaskRequest.getId()).get();
+            task.setTitle(updateTaskRequest.getTitle());
+            task.setDescription(updateTaskRequest.getDescription());
+            task.setDeadline(updateTaskRequest.getDeadline());
+            task.setPriority(updateTaskRequest.getPriority());
+            task.setStatus(updateTaskRequest.getStatus());
+            this.taskRepository.save(task);
         }
     }
 }

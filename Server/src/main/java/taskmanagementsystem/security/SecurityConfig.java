@@ -50,7 +50,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("api/task","api/user","api/user/**","api/task/deleteAllByStatus/{userId}","api/task/deleteAllByUserId/{userId}","api/task/**")
+                        auth.requestMatchers("api/task","api/user","api/user/**","api/task/deleteAllByStatus/{userId}","api/task/deleteAllByUserId/{userId}","api/task/**","api/task/update/{id}")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated());

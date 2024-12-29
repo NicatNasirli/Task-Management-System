@@ -2,6 +2,7 @@ package taskmanagementsystem.business.abstracts;
 
 import org.springframework.stereotype.Service;
 import taskmanagementsystem.business.requests.CreateTaskRequest;
+import taskmanagementsystem.business.requests.UpdateTaskRequest;
 import taskmanagementsystem.business.responses.GetTaskResponse;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface TaskService {
     void deleteTaskById(int id);
     void deleteAllTaskByUserAndStatus(int userId, String status);
     GetTaskResponse getTaskById(int id);
+    void updateTask(UpdateTaskRequest updateTaskRequest);
 }

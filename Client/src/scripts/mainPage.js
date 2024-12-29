@@ -54,14 +54,30 @@ async function openTaskDetails(id) {
         taskContent.className = 'taskContent';
 
         taskContent.innerHTML = `
-            <h3>Task Details</h3>
-            <p><strong>Title:</strong> ${title}</p>
-            <p><strong>Description:</strong> ${description}</p>
-            <p><strong>Status:</strong> ${status}</p>
-            <p><strong>Deadline:</strong> ${deadline}</p>
-            <p><strong>Priority:</strong> ${priority}</p>
-            <button class="deleteButton">Delete</button>
-        `;
+    <h3>Task Details</h3>
+    <p><strong>Title:</strong></p>
+    <input type="text" class="editTitle" value="${title}" />
+    <p><strong>Description:</strong></p>
+    <textarea class="editDescription">${description}</textarea>
+    <p><strong>Status:</strong></p>
+    <select class="editStatus">
+        <option value="undone" ${status === "undone" ? "selected" : ""}>Undone</option>
+        <option value="done" ${status === "done" ? "selected" : ""}>Done</option>
+    </select>
+    <p><strong>Deadline:</strong></p>
+    <input type="date" class="editDeadline" value="${deadline}" />
+    <p><strong>Priority:</strong></p>
+    <select class="editPriority">
+        <option value="URGENT" ${priority === "URGENT" ? "selected" : ""}>URGENT</option>
+        <option value="HIGH" ${priority === "HIGH" ? "selected" : ""}>HIGH</option>
+        <option value="MEDIUM" ${priority === "MEDIUM" ? "selected" : ""}>MEDIUM</option>
+        <option value="LOW" ${priority === "LOW" ? "selected" : ""}>LOW</option>
+    </select>
+    <div class="buttons">
+        <button class="saveButton">Save</button>
+        <button class="deleteButton">Delete</button>
+    </div>
+`;
 
         const tasksHolder = document.getElementById('tasks');
         tasksHolder.appendChild(taskContent);
@@ -75,6 +91,41 @@ async function openTaskDetails(id) {
 
         document.addEventListener('click', closeDetails);
 
+
+        const saveButton = taskContent.querySelector('.saveButton');
+        saveButton.addEventListener('click', async () => {
+            const updatedTitle = taskContent.querySelector('.editTitle').value;
+            const updatedDescription = taskContent.querySelector('.editDescription').value;
+            const updatedStatus = taskContent.querySelector('.editStatus').value;
+            const updatedDeadline = taskContent.querySelector('.editDeadline').value;
+            const updatedPriority = taskContent.querySelector('.editPriority').value;
+
+            const updatedTask = {
+                id:id,
+                title: updatedTitle,
+                description: updatedDescription,
+                status: updatedStatus,
+                deadline: updatedDeadline,
+                priority: parseInt(updatedPriority),
+            };
+
+            try {
+                await fetch(`http://localhost:8080/api/task/update/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedTask),
+                });
+                alert('Task updated successfully!');
+                tasksHolder.removeChild(taskContent);
+            } catch (error) {
+                console.error('Error updating task:', error);
+                alert('Failed to update task. Please try again.');
+            }
+        });
+
+        // Delete Button Logic
         const deleteButton = taskContent.querySelector('.deleteButton');
         deleteButton.addEventListener('click', async () => {
             const confirmed = confirm('Are you sure you want to delete this task?');
@@ -90,6 +141,7 @@ async function openTaskDetails(id) {
         console.error(`Error fetching task ${id}:`, error);
     }
 }
+
 
 
 

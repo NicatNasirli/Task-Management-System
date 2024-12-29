@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import taskmanagementsystem.business.abstracts.TaskService;
 import taskmanagementsystem.business.requests.CreateTaskRequest;
+import taskmanagementsystem.business.requests.UpdateTaskRequest;
 import taskmanagementsystem.business.responses.GetTaskResponse;
 
 import java.util.List;
@@ -40,6 +41,12 @@ public class TaskController {
         return ResponseEntity.ok("Task Updated!");
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateTask(@RequestBody UpdateTaskRequest updateTaskRequest){
+        this.taskService.updateTask(updateTaskRequest);
+        return ResponseEntity.ok("Task Updated!");
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteTaskById(@PathVariable int id){
         this.taskService.deleteTaskById(id);
@@ -58,4 +65,5 @@ public class TaskController {
     public ResponseEntity<GetTaskResponse> getTaskById(@PathVariable int id){
         return ResponseEntity.ok(this.taskService.getTaskById(id));
     }
+
 }

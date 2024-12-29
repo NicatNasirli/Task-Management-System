@@ -147,10 +147,10 @@ main .tasksPart {
 
 main .tasksPart button{
   display: flex;
-  background-color: inherit; 
-  border-color:white;
+  background-color: red; 
+  border-color:red;
   position: relative;
-  color: red;
+  color: white;
   text-align: center;
   width: 80px;
   height: 20px;
@@ -246,37 +246,65 @@ select {
   margin-left: 13px;
 }
 
+
 .taskContent {
-  display: block;
+  height: 450px;
+  width: 400px;
+  margin-left: 400px;
   position: absolute;
-  z-index: 1000;
-  background: white;
-  padding: 10px;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 410px;
-  height: 260px; 
-  margin-left: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: black;
+  font-family: Arial, sans-serif;
 }
 
-.taskContent h3 {
-  margin-top: 0;
+.taskContent .buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.taskContent .saveButton {
+  display: flex;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: 2px solid white;
+  border-radius: 5px;
+  text-align: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.taskContent .saveButton:hover {
+  background-color: #45a049;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
 .taskContent .deleteButton {
-  position: absolute;
-  height: 25px;
-  bottom: 10px;
-  right: 10px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #f97316;
+  background-color: #f44336;
   color: white;
+  padding: 10px 15px;
+  border: 2px solid white;
+  border-radius: 5px;
   cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .taskContent .deleteButton:hover {
   background-color: #d8600b;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
+.taskContent h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.taskContent p {
+  font-size: 16px;
+  margin: 10px 0;
+}
