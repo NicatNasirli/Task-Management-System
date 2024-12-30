@@ -124,8 +124,7 @@ async function openTaskDetails(id) {
                 alert('Failed to update task. Please try again.');
             }
         });
-
-        // Delete Button Logic
+        
         const deleteButton = taskContent.querySelector('.deleteButton');
         deleteButton.addEventListener('click', async () => {
             const confirmed = confirm('Are you sure you want to delete this task?');
