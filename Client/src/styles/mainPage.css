@@ -1,6 +1,6 @@
 body {
-    background-color: white;
-    font-family: sans-serif;
+  background-color: white;
+  font-family: sans-serif;
 }
 
 nav {
@@ -12,11 +12,13 @@ nav {
   justify-content: space-between;
   align-items: center;
 }
-nav h2{
+
+nav h2 {
   display: flex;
   font-size: xx-large;
   margin-left: 100px;
 }
+
 nav .logo {
   display: flex;
   align-items: center;
@@ -51,8 +53,8 @@ nav ul li a {
   color: white;
   text-decoration: none;
 }
- 
-.sideBar{
+
+.sideBar {
   width: 15%;
   height: 100vh;
   margin-top: 30px;
@@ -68,7 +70,7 @@ nav ul li a {
   margin-left: -10px;
 }
 
-.sideBar button{
+.sideBar button {
   background-color: #f97316;
   border-radius: 5px;
   border-color: white;
@@ -78,7 +80,7 @@ nav ul li a {
   margin-left: 30px;
 }
 
-.sideBar p{
+.sideBar p {
   color: black;
   font-size: large;
 }
@@ -86,27 +88,27 @@ nav ul li a {
 .sideBar .centerAlign {
   display: flex;
   align-items: center;
-  justify-content: center; 
-  gap: 10px; 
+  justify-content: center;
+  gap: 10px;
 }
 
-.sideBar b{
+.sideBar b {
   color: white;
   font-size: larger;
 }
 
-.sideBar a{
+.sideBar a {
   text-decoration: none;
   color: inherit;
 }
 
-.sideBar ul{
+.sideBar ul {
   color: black;
   list-style: none;
   text-decoration: none;
 }
 
-.sideBar ul li{
+.sideBar ul li {
   padding: 15px;
 }
 
@@ -115,7 +117,7 @@ nav ul li a {
   text-decoration: none;
 }
 
-.content{
+.content {
   display: flex;
 }
 
@@ -142,13 +144,13 @@ main .tasksPart {
   flex-direction: column;
   margin-top: 30px;
   margin-left: 150px;
-  padding: 20px; 
+  padding: 20px;
 }
 
-main .tasksPart button{
+main .tasksPart button {
   display: flex;
-  background-color: red; 
-  border-color:red;
+  background-color: red;
+  border-color: red;
   position: relative;
   color: white;
   text-align: center;
@@ -158,14 +160,14 @@ main .tasksPart button{
   margin-left: 600px;
 }
 
-#tasks{
+#tasks {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
 }
 
 main .tasksPart .taskHolder {
-  background-color:  #f97316;
+  background-color: #f97316;
   display: flex;
   margin-bottom: 7px;
   border-radius: 10px;
@@ -179,44 +181,44 @@ main .tasksPart .taskHolder {
   font-weight: bold;
 }
 
-main .tasksPart .taskHolder .checkbox{
+main .tasksPart .taskHolder .checkbox {
   transform: scale(1.8);
   position: relative;
   display: flex;
 }
 
-main .tasksPart .taskHolder .taskTitle{
+main .tasksPart .taskHolder .taskTitle {
   margin-left: 8px;
 }
 
 .addTaskSection {
-  display: none; 
-  position: absolute; 
-  z-index: 1000; 
-  background: white; 
-  padding: 10px; 
-  border: 1px solid #ddd; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  width: 410px; 
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  background: white;
+  padding: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 410px;
   height: 230px;
   margin-top: -400px;
   margin-left: 600px;
 }
 
-#addTaskSection{
+#addTaskSection {
   align-items: center;
   justify-content: center;
 }
 
 
-#addTaskForm #taskTitle{
+#addTaskForm #taskTitle {
   border-color: #f97316;
   border-radius: 5px;
   width: 400px;
   height: 40px;
 }
 
-#addTaskForm #taskDescription{
+#addTaskForm #taskDescription {
   border-color: #f97316;
   border-radius: 5px;
   width: 400px;
@@ -226,12 +228,12 @@ main .tasksPart .taskHolder .taskTitle{
 }
 
 
-#dueDate{
+#dueDate {
   border-radius: 5px;
   border-color: #f97316;
 }
 
-#addTaskForm button{
+#addTaskForm button {
   border-color: #f97316;
   background-color: white;
   border-radius: 5px;
@@ -250,21 +252,21 @@ select {
 .taskContent {
   margin-top: 80px;
   margin-left: 700px;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   z-index: 1000;
-  background-color: white; 
+  background-color: white;
   height: 450px;
   width: 400px;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-  color: black; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: black;
 }
 
 .taskContent .buttons {
   margin-top: 75px;
   height: fit-content;
-  display: flex;    
+  display: flex;
   align-items: flex-end;
 }
 
@@ -317,4 +319,51 @@ select {
 .taskContent p {
   font-size: 16px;
   margin: 10px 0;
+}
+
+.progress {
+  position: absolute;
+  left: 1100px;
+  top: 350px;
+  height: 500px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.progress h2 {
+  position: relative;
+  margin-left: -20px;
+}
+
+.progress .doneTasks,
+.progress .undoneTasks {
+  position: relative;
+  margin-bottom: 30px;
+  background-color: #f97316;
+  height: 200px;
+  width: 180px;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.doneTasks img,
+.undoneTasks img {
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.progress .doneTasks p,
+.progress .undoneTasks p {
+  margin: 5px 0;
+  text-align: center;
+  font-size: 20px;
 }
