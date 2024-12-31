@@ -168,6 +168,29 @@ function updateGreeting(name) {
     welcomingElement.textContent = `Hello, ${name}!`;
 }
 
+function updateProgress() {
+    const percentageComplete = document.getElementById('percentageComplete');
+    const percentageActive = document.getElementById('percentageActive');
+
+    const tasks = JSON.parse(localStorage.getItem('dashboardTasks')) || [];
+    console.log(tasks);
+
+    if (tasks.length === 0) {
+        console.log("No tasks found in local storage.");
+    } else {
+        const totalTasks = tasks.length;
+        const doneTasks = tasks.filter(task => task.status === "done").length;
+        const undoneTasks = totalTasks - doneTasks;
+        
+        const donePercentage = Math.round((doneTasks / totalTasks) * 100);
+        const undonePercentage = Math.round((undoneTasks / totalTasks) * 100);
+    
+        percentageComplete.textContent = `${donePercentage}%`;
+        percentageActive.textContent = `${undonePercentage}%`;
+
+    }
+}
+
 
 
 async function loadUserData(currentUserId) {
@@ -230,7 +253,9 @@ async function dashboardTasks(currentUserId) {
         createDivForTask(task);
         dashboardTasks.push(task);
     });
-    localStorage.setItem('dashboardTasks', dashboardTasks);
+    localStorage.setItem('dashboardTasks', JSON.stringify(dashboardTasks));
+
+    updateProgress();
 }
 
 async function deleteTasks(status) {
